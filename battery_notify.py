@@ -10,4 +10,6 @@ try:
 except:
     pass
 if int(tmp[1])<=9 and flag:
-  os.system('DISPLAY=:0 notify-send "low battery"')
+  os.system('DISPLAY=:0 notify-send "Low battery" \"Only '+tmp[1]+'% remaining.\"')
+# else: os.system('DISPLAY=:0 notify-send "Peace!" \"A whole lot i.e. '+tmp+'% remaining.\"')
+
