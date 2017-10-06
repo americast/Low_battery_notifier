@@ -1,15 +1,11 @@
 import os
+
 tmp = os.popen('upower -i $(upower -e | grep BAT) | grep --color=never -E "percentage"').read()
-# print tmp
-tmp = tmp[-5:-2]
-flag=True
-try:
-    a = int(tmp[1])
-    if a>=1:
-        flag=False
-except:
-    pass
-if int(tmp[2])<=9 and flag and tmp!='100':
-  os.system('DISPLAY=:0 notify-send "Low battery" \"Only '+tmp[2]+'% remaining.\"')
+check = os.popen('upower -i $(upower -e | grep BAT) | grep --color=never -E "state"').read()
+check = check.strip().find("discharging")  # check if battery is being charged or not
+tmp = tmp[-4:-2]
+
+if int(tmp) < 10 and check != -1:
+  os.system('DISPLAY=:0 notify-send "Low battery" \"Only '+tmp+'% remaining.\"')
 # else: os.system('DISPLAY=:0 notify-send "Peace!" \"A whole lot i.e. '+tmp+'% remaining.\"')
 
